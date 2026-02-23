@@ -54,6 +54,6 @@ python manage.py runserver
 
 ## 👨‍💻 توسعه دهنده
 **متین** - دانشجوی سال آخر علوم کامپیوتر
-* ارتباط با من: [GitHub Profile](https://github.com/matin)
+* ارتباط با من: [GitHub Profile](https://github.com/ImMatinGoli)
 
 ---
