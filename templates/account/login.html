@@ -1,0 +1,45 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}ورود | وبلاگ متین{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>خوش برگشتی!</h2>
+            <p>برای نوشتن مقاله جدید یا مدیریت حساب، وارد شو ☕</p>
+        </div>
+        
+        <form method="post" class="auth-form" novalidate>
+            {% csrf_token %}
+            
+            {% if form.non_field_errors %}
+                <div class="error-text" style="text-align: center; margin-bottom: 1rem; background: rgba(239, 68, 68, 0.1); padding: 0.5rem; border-radius: 8px;">
+                    {% for error in form.non_field_errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+            
+            {% for field in form %}
+                <div class="form-group">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    {{ field }}
+                    
+                    {% for error in field.errors %}
+                        <span class="error-text">{{ error }}</span>
+                    {% endfor %}
+                </div>
+            {% endfor %}
+            
+            <button type="submit" class="btn btn-primary btn-block">ورود به حساب</button>
+        </form>
+        
+        <div class="auth-footer">
+            <p>رمز عبورت رو فراموش کردی؟ <a href="{% url 'account_reset_password' %}">بازیابی رمز</a></p>
+            <p style="margin-top: 0.8rem;">حساب کاربری نداری؟ <a href="{% url 'account_signup' %}">ثبت‌نام کن</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

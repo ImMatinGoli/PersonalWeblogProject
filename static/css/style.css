@@ -1,0 +1,796 @@
+/* style.css */
+
+/* ۱. تعریف متغیرها برای تغییر راحت رنگ‌ها، فاصله‌ها و فونت */
+:root {
+    --bg-color: #f3f4f6;
+    --surface-color: #ffffff;
+    --text-main: #1f2937;
+    --text-muted: #4b5563;
+    --primary: #6366f1; /* یه رنگ نیلی-بنفش جذاب و مدرن */
+    --primary-hover: #4f46e5;
+    --border: #e5e7eb;
+    --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+    /* فونت وزیرمتن رو با اولویت بالا تنظیم کردیم */
+    --font-family: 'Vazirmatn', system-ui, -apple-system, sans-serif;
+}
+
+/* ۲. جادوی دارک‌مود خودکار بر اساس تنظیمات سیستم کاربر */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --bg-color: #0f172a;
+        --surface-color: #1e293b;
+        --text-main: #f8fafc;
+        --text-muted: #94a3b8;
+        --primary: #818cf8;
+        --border: #334155;
+        --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.5);
+    }
+}
+
+/* ۳. ریست کردن استایل‌های پیش‌فرض مرورگر */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-family);
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    line-height: 1.6;
+    /* این بخش باعث میشه فوتر همیشه بچسبه پایین صفحه */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    transition: background-color 0.3s, color 0.3s;
+    /* این خط باعث میشه اعداد انگلیسی تو متن فارسی، خودکار فارسی رندر بشن */
+    font-variant-numeric: tabular-nums;
+}
+
+/* ۴. استایل‌های هدر و نویگیشن */
+.navbar {
+    background-color: var(--surface-color);
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 5%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+}
+
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: var(--primary);
+    cursor: pointer;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.navbar a:hover {
+    color: var(--primary);
+}
+
+/* ۵. بخش محتوای اصلی */
+.container {
+    flex: 1;
+    width: 100%;
+    max-width: 1000px;
+    margin: 0 auto 2rem auto; /* 🟢 تغییر مهم: صفر از بالا، ۲ رِم از پایین */
+    padding: 0 20px;
+}
+
+/* ۶. فوتر سایت */
+footer {
+    background-color: var(--surface-color);
+    border-top: 1px solid var(--border);
+    text-align: center;
+    padding: 1.5rem 0;
+    color: var(--text-muted);
+    transition: var(--transition);
+}
+
+/* ۷. استایل یه دکمه استاندارد که بعداً تو فرم‌ها و پست‌ها به دردمون می‌خوره */
+.btn {
+    display: inline-block;
+    background-color: var(--primary);
+    color: #ffffff;
+    padding: 0.5rem 1.5rem;
+    border-radius: 8px;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: var(--transition);
+    font-family: inherit;
+    font-weight: bold;
+}
+
+.btn:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px); /* یه انیمیشن کوچیک رفتن به بالا */
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.3);
+}
+
+/* --- استایل‌های مخصوص صفحه اصلی (کارت‌های وبلاگ) --- */
+
+.hero-section {
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.hero-section h1 {
+    font-size: 3rem;
+    font-weight: 900;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+    letter-spacing: -1px;
+}
+
+.hero-section p {
+    font-weight: 300;
+    font-size: 1.2rem;
+    color: var(--text-muted);
+}
+
+/* شبکه گرید برای کارت‌ها */
+.post-grid {
+    display: grid;
+    /* این خط جادو می‌کنه! تو موبایل ۱ ستون و تو دسکتاپ تا ۳ ستون میسازه */
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+/* ظاهر خود کارت */
+.post-card {
+    background-color: var(--surface-color);
+    border-radius: 12px;
+    overflow: hidden; /* که عکس از لبه‌های گرد بیرون نزنه */
+    box-shadow: var(--shadow);
+    transition: var(--transition);
+    display: flex;
+    flex-direction: column;
+}
+
+.post-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 20px -8px rgba(0, 0, 0, 0.2);
+}
+
+/* بخش عکس کارت */
+.card-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    border-bottom: 1px solid var(--border);
+}
+
+/* محتوای متنی کارت */
+.card-content {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* باعث میشه فوتر کارت‌ها همیشه تو یه سطح قرار بگیره */
+}
+
+/* استایل دسته‌بندی بالای کارت */
+.category {
+    font-size: 0.85rem;
+    font-weight: 900;
+    color: var(--primary);
+    background-color: rgba(99, 102, 241, 0.1);
+    padding: 4px 10px;
+    border-radius: 20px;
+    display: inline-block;
+    width: fit-content;
+    margin-bottom: 1rem;
+}
+
+/* تیتر کارت‌های وبلاگ */
+.card-content h2 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.card-content h2 a {
+    text-decoration: none;
+    color: var(--text-main);
+    transition: var(--transition);
+}
+
+.card-content h2 a:hover {
+    color: var(--primary);
+}
+
+.excerpt {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-bottom: 1.5rem;
+    flex-grow: 1;
+}
+
+/* پایین کارت (تاریخ و دکمه ادامه مطلب) */
+.card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.date {
+    color: var(--text-muted);
+}
+
+.read-more {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.read-more:hover {
+    color: var(--primary-hover);
+}
+
+/* --- استایل‌های لندینگ پیج (صفحه اصلی جدید) --- */
+
+/* بخش هیرو */
+.landing-hero {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 50vh;
+    padding: 4rem 1rem;
+    margin-bottom: 2rem;
+}
+
+.hero-content {
+    max-width: 800px;
+}
+
+.greeting {
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--primary);
+    background-color: rgba(99, 102, 241, 0.1);
+    padding: 0.5rem 1.2rem;
+    border-radius: 50px;
+    margin-bottom: 1.5rem;
+}
+
+.hero-title {
+    font-size: 3.5rem;
+    font-weight: 900;
+    line-height: 1.3;
+    margin-bottom: 1.5rem;
+    letter-spacing: -1px;
+}
+
+.hero-title span {
+    color: var(--primary);
+}
+
+.hero-description {
+    font-size: 1.25rem;
+    color: var(--text-muted);
+    margin-bottom: 2.5rem;
+    font-weight: 400;
+}
+
+/* دکمه‌های هیرو */
+.hero-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    color: white;
+}
+
+.btn-outline {
+    background-color: transparent;
+    color: var(--text-main);
+    border: 2px solid var(--border);
+}
+
+.btn-outline:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-2px);
+}
+
+/* تیتر مشترک سکشن‌ها */
+.section-title {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    position: relative;
+    display: inline-block;
+}
+
+/* بخش موضوعات */
+.topics-section {
+    text-align: center;
+    margin-bottom: 5rem;
+    padding: 2rem;
+    background-color: var(--surface-color);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+.tag-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.tag {
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    padding: 0.8rem 1.5rem;
+    border-radius: 12px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 1px solid var(--border);
+    transition: var(--transition);
+    cursor: default;
+}
+
+.tag:hover {
+    border-color: var(--primary);
+    color: var(--primary);
+    transform: translateY(-3px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+/* بخش هدرِ تازه‌ترین نوشته‌ها */
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border);
+    padding-bottom: 1rem;
+}
+
+.section-header .section-title {
+    margin-bottom: 0;
+}
+
+.view-all {
+    color: var(--text-muted);
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.view-all:hover {
+    color: var(--primary);
+}
+
+/* --- استایل‌های صفحات احراز هویت (ثبت‌نام و ورود) --- */
+
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;
+    padding: 2rem 1rem;
+}
+
+.auth-card {
+    background-color: var(--surface-color);
+    width: 100%;
+    max-width: 450px;
+    padding: 2.5rem 2rem;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--border);
+}
+
+.auth-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.auth-header h2 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+.auth-header p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* تنظیمات خود فرم و فیلدها */
+.form-group {
+    margin-bottom: 1.5rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-group label {
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 0.5rem;
+}
+
+/* استایل دادن به اینپوت‌های جنگو */
+.form-group input,
+.form-group textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    background-color: var(--bg-color);
+    color: var(--text-main);
+    font-family: var(--font-family);
+    font-size: 1rem;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
+    background-color: var(--surface-color);
+}
+
+/* استایل مخصوص فیلد آپلود عکس (آواتار) */
+.form-group input[type="file"] {
+    padding: 0.5rem;
+    background-color: transparent;
+    border: 1px dashed var(--border);
+    cursor: pointer;
+}
+
+/* راهنماها و ارورها */
+.help-text {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    margin-top: 0.4rem;
+    line-height: 1.4;
+}
+
+.error-text {
+    color: #ef4444; /* قرمز ملایم برای خطاها */
+    font-size: 0.85rem;
+    font-weight: 700;
+    margin-top: 0.4rem;
+}
+
+/* دکمه تمام‌عرض */
+.btn-block {
+    width: 100%;
+    padding: 0.8rem;
+    font-size: 1.1rem;
+    margin-top: 1rem;
+}
+
+/* فوتر فرم */
+.auth-footer {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.95rem;
+    color: var(--text-muted);
+}
+
+.auth-footer a {
+    color: var(--primary);
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.auth-footer a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* --- استایل‌های صفحه نمایش تکی مقاله (Post Detail) --- */
+.single-post-container {
+    max-width: 800px;
+    margin: 2rem auto 0 auto; /* 🟢 این خط رو جایگزین قبلی کن تا از بالا فاصله بگیره */
+    background-color: var(--surface-color);
+    padding: 3rem;
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+}
+
+/* هدر مقاله */
+.post-header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+.post-title {
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--text-main);
+    line-height: 1.4;
+    margin: 1rem 0;
+}
+
+/* اطلاعات زیر تیتر (نویسنده و تاریخ) */
+.post-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1.5rem;
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    margin-top: 1.5rem;
+}
+
+.meta-author {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 700;
+    color: var(--text-main);
+}
+
+.meta-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+}
+
+.meta-avatar-placeholder {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    border: 2px solid var(--border);
+}
+
+/* عکس کاور */
+.post-cover {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 3rem;
+    box-shadow: var(--shadow);
+}
+
+.post-cover img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* بدنه اصلی متن مقاله */
+.post-body {
+    font-size: 1.15rem; /* فونت کمی بزرگتر برای خوانایی */
+    line-height: 2; /* فاصله خطوط بیشتر */
+    color: var(--text-main);
+}
+
+.post-body p {
+    margin-bottom: 1.5rem;
+}
+
+/* استایل دادن به تیترهای داخل متن مقاله */
+.post-body h2, .post-body h3 {
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-main);
+}
+
+/* باکس نویسنده در انتهای مقاله */
+.author-box {
+    margin-top: 4rem;
+    padding: 2rem;
+    background-color: var(--bg-color);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    border: 1px solid var(--border);
+}
+
+.author-box-avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: var(--shadow);
+}
+
+.author-box-avatar .meta-avatar-placeholder.large {
+    width: 80px;
+    height: 80px;
+    font-size: 2.5rem;
+}
+
+.author-box-info h4 {
+    margin-bottom: 0.5rem;
+    color: var(--text-main);
+    font-size: 1.2rem;
+}
+
+.author-box-info p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 0;
+}
+
+/* لینک برگشت */
+.back-link {
+    margin-top: 3rem;
+    text-align: center;
+}
+
+/* رسپانسیو کردن باکس نویسنده برای موبایل */
+@media (max-width: 600px) {
+    .single-post-container {
+        padding: 1.5rem;
+    }
+
+    .author-box {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .post-title {
+        font-size: 1.8rem;
+    }
+}
+
+/* --- استایل‌های بخش کاربری در نوبار --- */
+
+.nav-auth {
+    display: flex;
+    align-items: center;
+}
+
+/* حالت مهمان (ورود و ثبت‌نام) */
+.guest-menu {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.btn-login {
+    color: var(--text-main);
+    font-weight: 700;
+    text-decoration: none;
+    transition: var(--transition);
+}
+
+.btn-login:hover {
+    color: var(--primary);
+}
+
+/* حالت لاگین شده (پروفایل و خروج) */
+.user-menu {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: var(--bg-color);
+    padding: 0.3rem 0.5rem 0.3rem 1rem;
+    border-radius: 50px;
+    border: 1px solid var(--border);
+}
+
+.nav-avatar {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--primary);
+}
+
+.nav-avatar-placeholder {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: var(--surface-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid var(--border);
+    font-size: 1.1rem;
+}
+
+.nav-username {
+    font-weight: 700;
+    font-size: 0.95rem;
+    color: var(--text-main);
+}
+
+.btn-logout {
+    background: transparent;
+    border: 1px solid #ef4444; /* رنگ قرمز برای خروج */
+    color: #ef4444;
+    padding: 0.3rem 0.8rem;
+    border-radius: 20px;
+    cursor: pointer;
+    font-family: inherit;
+    font-weight: bold;
+    font-size: 0.85rem;
+    transition: var(--transition);
+}
+
+.btn-logout:hover {
+    background: #ef4444;
+    color: white;
+}
+
+/* برای اینکه تو موبایل نوبار به هم نریزه */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1rem;
+    }
+}
+
+.site-logo {
+    height: 45px; /* ارتفاع لوگو رو اینجا تنظیم کن */
+    width: auto;
+    border-radius: 8px; /* اگه دوست داری گوشه‌هاش کمی گرد بشه */
+    display: block; /* برای جلوگیری از فاصله افتادن زیر عکس */
+    transition: var(--transition); /* برای یه افکت نرم موقع هاور */
+}
+
+.site-logo:hover {
+    transform: scale(1.05); /* وقتی موس میره روش یه ذره بزرگ میشه */
+}
+
+/* --- تیر خلاص برای یکپارچه کردن نوبار و هیرو --- */
+.container {
+    margin-top: 0 !important;
+}
+
+.landing-hero {
+    margin-top: 0 !important;
+}
+
+.navbar {
+    margin-bottom: 0 !important;
+    border-bottom: none !important; /* اون خط زیر نوبار رو پاک می‌کنه */
+    box-shadow: none !important; /* سایه رو پاک می‌کنه */
+    /* اگه می‌خوای نوبار و صفحه کاملاً تو هم محو بشن، خط زیر رو هم از کامنت در بیار: */
+    /* background-color: var(--bg-color) !important; */
+}
+

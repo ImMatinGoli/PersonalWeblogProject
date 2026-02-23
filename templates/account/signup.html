@@ -1,0 +1,52 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}ثبت‌نام | عضویت در سایت{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card">
+        <div class="auth-header">
+            <h2>ساخت حساب کاربری ✍️</h2>
+            <p>به جمع ما خوش اومدی! ایمیلت رو وارد کن تا شروع کنیم.</p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" class="auth-form" novalidate>
+            {% csrf_token %}
+
+            {% if form.non_field_errors %}
+                <div class="error-msg" style="background: rgba(239, 68, 68, 0.1); color: #ef4444; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
+                    {% for error in form.non_field_errors %}{{ error }}{% endfor %}
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="{{ form.email.id_for_label }}">آدرس ایمیل</label>
+                <input type="email" name="email" id="id_email" placeholder="example@mail.com" required>
+                {% for error in form.email.errors %}
+                    <span class="error-text" style="color: #ef4444; font-size: 0.8rem;">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password1">رمز عبور</label>
+                <input type="password" name="password1" id="id_password1" placeholder="********" required>
+                {% for error in form.password1.errors %}
+                    <span class="error-text" style="color: #ef4444; font-size: 0.8rem;">{{ error }}</span>
+                {% endfor %}
+            </div>
+
+            <div class="form-group">
+                <label for="id_password2">تکرار رمز عبور</label>
+                <input type="password" name="password2" id="id_password2" placeholder="********" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary btn-block" style="margin-top: 10px;">تأیید و ساخت حساب</button>
+        </form>
+
+        <div class="auth-footer" style="margin-top: 20px; text-align: center; border-top: 1px solid var(--border); padding-top: 15px;">
+            <p>قبلاً ثبت‌نام کردی؟ <a href="{% url 'account_login' %}" style="color: var(--primary); font-weight: bold;">وارد شو</a></p>
+        </div>
+    </div>
+</div>
+{% endblock %}

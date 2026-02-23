@@ -1,0 +1,20 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}خروج | وبلاگ متین{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="text-align: center;">
+        <div class="auth-header">
+            <h2>خروج موفقیت‌آمیز 👋</h2>
+            <p>به امید دیدار! هر وقت خواستی می‌تونی دوباره برگردی.</p>
+        </div>
+        
+        <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+            <a href="{% url 'login' %}" class="btn btn-primary btn-block">ورود مجدد</a>
+            <a href="/" class="btn btn-outline btn-block" style="text-align: center;">بازگشت به صفحه اصلی</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
