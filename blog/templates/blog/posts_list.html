@@ -1,0 +1,103 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}خانه | وبلاگ متین{% endblock %}
+
+{% block content %}
+    <section class="landing-hero">
+        <div class="hero-content">
+            <span class="greeting">سلام، من متین هستم 👋</span>
+            <h1 class="hero-title">توسعه‌دهنده نرم‌افزار و علاقه‌مند به <span>هوش مصنوعی</span></h1>
+            <p class="hero-description">
+                اینجا دست‌نوشته‌ها، چالش‌های برنامه‌نویسی و تجربیاتم رو تو دنیای علوم کامپیوتر، پایتون و توسعه وب به
+                اشتراک می‌ذارم. خوش اومدی به دنیای من!
+            </p>
+            <div class="hero-buttons">
+                <a href="{% url 'posts_list' %}" class="btn btn-primary">خواندن مقالات</a>
+                <a href="#" class="btn btn-outline">درباره من</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="topics-section">
+        <h3 class="section-title">چی اینجا پیدا می‌کنی؟</h3>
+        <div class="tag-cloud">
+            <span class="tag">Django</span>
+            <span class="tag">Python</span>
+            <span class="tag">AI & Bots</span>
+            <span class="tag">Web Development</span>
+            <span class="tag">گراف و الگوریتم</span>
+            <span class="tag">معماری سیستم</span>
+        </div>
+    </section>
+
+    <section class="latest-posts-section">
+        <div class="section-header">
+            <h3 class="section-title">تازه‌ترین نوشته‌ها</h3>
+            <a href="{% url 'posts_list' %}" class="view-all">مشاهده همه &larr;</a>
+        </div>
+
+        <div class="post-grid">
+            {% for post in posts %}
+                <article class="post-card">
+                    {% if post.cover %}
+                        <div class="card-image" style="background-image: url('{{ post.cover.url }}');"></div>
+                    {% else %}
+                        <div class="card-image"
+                             style="background-image: url('https://placehold.co/600x400/6366f1/ffffff?text=No+Cover');"></div>
+                    {% endif %}
+
+                    <div class="card-content">
+                        <div style="display: flex; gap: 5px; flex-wrap: wrap; margin-bottom: 10px;">
+                            {% for cat in post.categories.all %}
+                                <span class="category" style="margin: 0;">{{ cat.name }}</span>
+                            {% endfor %}
+                        </div>
+
+                        <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                        <p class="excerpt" style="text-align: justify">{{ post.content|truncatewords:30 }}</p>
+
+                        <div class="card-footer">
+                            <span class="date">{{ post.get_jalali_date }}</span>
+                            <a href="{{ post.get_absolute_url }}" class="read-more">ادامه مطلب &larr;</a>
+                        </div>
+                    </div>
+                </article>
+            {% endfor %}
+        </div>
+
+        {% if posts.has_other_pages %}
+            <div class="pagination-container"
+                 style="display: flex; justify-content: center; align-items: center; gap: 0.5rem; margin-top: 4rem; margin-bottom: 2rem;">
+
+                {% if posts.has_previous %}
+                    <a href="?page={{ posts.previous_page_number }}" class="btn btn-outline"
+                       style="padding: 8px 15px; border-radius: 8px; text-decoration: none;">&laquo; قبلی</a>
+                {% else %}
+                    <span class="btn"
+                          style="padding: 8px 15px; border-radius: 8px; background: transparent; border: 1px solid #334155; color: #64748b; cursor: not-allowed;">&laquo; قبلی</span>
+                {% endif %}
+
+                {% for i in posts.paginator.page_range %}
+                    {% if posts.number == i %}
+                        <span class="btn btn-primary"
+                              style="padding: 8px 15px; border-radius: 8px; font-weight: bold;">{{ i }}</span>
+                    {% else %}
+                        <a href="?page={{ i }}" class="btn btn-outline"
+                           style="padding: 8px 15px; border-radius: 8px; text-decoration: none;">{{ i }}</a>
+                    {% endif %}
+                {% endfor %}
+
+                {% if posts.has_next %}
+                    <a href="?page={{ posts.next_page_number }}" class="btn btn-outline"
+                       style="padding: 8px 15px; border-radius: 8px; text-decoration: none;">بعدی &raquo;</a>
+                {% else %}
+                    <span class="btn"
+                          style="padding: 8px 15px; border-radius: 8px; background: transparent; border: 1px solid #334155; color: #64748b; cursor: not-allowed;">بعدی &raquo;</span>
+                {% endif %}
+
+            </div>
+        {% endif %}
+
+    </section>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}خانه | وبلاگ متین{% endblock %}
+
+{% block content %}
+<section class="landing-hero">
+    <div class="hero-content">
+        <span class="greeting">سلام، من متین هستم 👋</span>
+        <h1 class="hero-title">توسعه‌دهنده نرم‌افزار و علاقه‌مند به <span>هوش مصنوعی</span></h1>
+        <p class="hero-description">
+            اینجا دست‌نوشته‌ها، چالش‌های برنامه‌نویسی و تجربیاتم رو تو دنیای علوم کامپیوتر، پایتون و توسعه وب به اشتراک می‌ذارم. خوش اومدی به دنیای من!
+        </p>
+        <div class="hero-buttons">
+            <a href="{% url 'posts_list' %}" class="btn btn-primary">خواندن مقالات</a>
+            <a href="#" class="btn btn-outline">درباره من</a>
+        </div>
+    </div>
+</section>
+
+<section class="topics-section">
+    <h3 class="section-title">چی اینجا پیدا می‌کنی؟</h3>
+    <div class="tag-cloud">
+        {% for category in categories %}
+            <a href="{% url 'category_posts' category.name %}" class="tag" style="text-decoration: none;">
+                {{ category.name }}
+            </a>
+        {% empty %}
+            <span class="tag">هنوز دسته‌بندی ایجاد نشده</span>
+        {% endfor %}
+    </div>
+</section>
+
+<section class="latest-posts-section">
+    <div class="section-header">
+        <h3 class="section-title">تازه‌ترین نوشته‌ها</h3>
+        <a href="{% url 'posts_list' %}" class="view-all">مشاهده همه &larr;</a>
+    </div>
+
+    <div class="post-grid">
+        {% for post in posts %}
+            <article class="post-card">
+                {% if post.cover %}
+                    <div class="card-image" style="background-image: url('{{ post.cover.url }}');"></div>
+                {% else %}
+                    <div class="card-image" style="background-image: url('https://placehold.co/600x400/6366f1/ffffff?text=No+Cover');"></div>
+                {% endif %}
+
+                <div class="card-content">
+
+                    <div style="margin-bottom: 0.8rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        {% for cat in post.categories.all %}
+                            <span class="category">{{ cat.name }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                    <p class="excerpt" style="text-align: justify">{{ post.content|truncatewords:30 }}</p>
+                    <div class="card-footer">
+                        <span class="date">{{ post.get_jalali_date }}</span>
+                        <a href="{{ post.get_absolute_url }}" class="read-more">ادامه مطلب &larr;</a>
+                    </div>
+                </div>
+            </article>
+
+        {% empty %}
+            <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 4rem 2rem; background-color: var(--surface-color); border-radius: 12px; border: 2px dashed var(--border);">
+                <span style="font-size: 3rem; display: block; margin-bottom: 1rem;">📝</span>
+                <h3 style="color: var(--text-main); margin-bottom: 0.5rem;">هنوز پستی برای نمایش وجود نداره</h3>
+                <p style="color: var(--text-muted);">به زودی اولین دست‌نوشته‌ها اینجا قرار می‌گیرن. منتظر باشید!</p>
+            </div>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}ثبت موفق نظر | وبلاگ متین{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="text-align: center; border-top: 5px solid #10b981;">
+        
+        <div class="auth-header">
+            <h2 style="color: #10b981; font-size: 3.5rem; margin-bottom: 1rem;">✅</h2>
+            <h3 style="margin-bottom: 1rem; color: var(--text-main);">نظرت با موفقیت ثبت شد!</h3>
+            
+            <p style="color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">
+                دمت گرم بابت مشارکتت! نظرت درباره مقاله <strong>"{{ post.title }}"</strong> دریافت شد.
+                <br><br>
+                <span style="background-color: rgba(245, 158, 11, 0.1); color: #d97706; padding: 0.4rem 0.8rem; border-radius: 8px; font-weight: bold; font-size: 0.9rem;">
+                    ⏳ در انتظار تایید مدیریت
+                </span>
+                <br><br>
+                به زودی بررسی میشه و تو سایت قرار می‌گیره.
+            </p>
+        </div>
+        
+        <div style="margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem;">
+            <a href="{{ post.get_absolute_url }}" class="btn btn-primary btn-block">بازگشت به مقاله</a>
+            
+            <a href="/" class="btn btn-outline btn-block" style="text-align: center;">رفتن به صفحه اصلی</a>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

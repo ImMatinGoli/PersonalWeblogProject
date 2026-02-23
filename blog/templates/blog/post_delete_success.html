@@ -1,0 +1,23 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}حذف موفق | وبلاگ متین{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="text-align: center; border-top: 5px solid #10b981;">
+        <div class="auth-header">
+            <h2 style="color: #10b981; font-size: 3rem; margin-bottom: 1rem;">🗑️✔️</h2>
+            <h3 style="margin-bottom: 1rem;">مقاله با موفقیت حذف شد</h3>
+            <p style="color: var(--text-muted); line-height: 1.8;">
+                مقاله‌ی مورد نظر شما برای همیشه از وبلاگ پاک شد. 
+            </p>
+        </div>
+        
+        <div style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1rem;">
+            <a href="{% url 'posts_list' %}" class="btn btn-primary btn-block">بازگشت به لیست مقالات</a>
+            <a href="/" class="btn btn-outline btn-block" style="text-align: center;">بازگشت به صفحه اصلی</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

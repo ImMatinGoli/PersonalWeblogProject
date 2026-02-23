@@ -1,0 +1,55 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}نتایج جستجو | وبلاگ متین{% endblock %}
+
+{% block content %}
+<section class="search-results-section" style="margin-top: 3rem;">
+    
+    <div class="section-header" style="margin-bottom: 3rem; text-align: center; border-bottom: 1px solid var(--border); padding-bottom: 2rem;">
+        <h2 style="font-size: 2rem; color: var(--text-main); margin-bottom: 1rem;">
+            نتایج جستجو برای: <span style="color: var(--primary);">"{{ query }}"</span>
+        </h2>
+        <p style="color: var(--text-muted); font-size: 1.1rem;">
+            {{ results|length }} مقاله پیدا شد
+        </p>
+    </div>
+
+    <div class="post-grid">
+        {% for post in results %}
+            <article class="post-card">
+                {% if post.cover %}
+                    <div class="card-image" style="background-image: url('{{ post.cover.url }}');"></div>
+                {% else %}
+                    <div class="card-image" style="background-image: url('https://placehold.co/600x400/6366f1/ffffff?text={{ post.title|urlencode }}');"></div>
+                {% endif %}
+
+                <div class="card-content">
+                    
+                    <div style="margin-bottom: 0.8rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
+                        {% for cat in post.categories.all %}
+                            <span class="category">{{ cat.name }}</span>
+                        {% endfor %}
+                    </div>
+
+                    <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                    <p class="excerpt" style="text-align: justify">{{ post.content|truncatewords:30 }}</p>
+                    <div class="card-footer">
+                        <span class="date">{{ post.get_jalali_date }}</span>
+                        <a href="{{ post.get_absolute_url }}" class="read-more">ادامه مطلب &larr;</a>
+                    </div>
+                </div>
+            </article>
+
+        {% empty %}
+            <div class="empty-state" style="grid-column: 1 / -1; text-align: center; padding: 5rem 2rem; background-color: var(--surface-color); border-radius: 12px; border: 2px dashed var(--border);">
+                <span style="font-size: 4rem; display: block; margin-bottom: 1rem;">🧐</span>
+                <h3 style="color: var(--text-main); margin-bottom: 0.5rem; font-size: 1.5rem;">متاسفانه نتیجه‌ای پیدا نشد!</h3>
+                <p style="color: var(--text-muted); margin-bottom: 2rem;">کلمه دیگه‌ای رو امتحان کن یا املای کلمه رو بررسی کن.</p>
+                <a href="/" class="btn btn-outline" style="border-radius: 50px; padding: 10px 30px;">برگشت به صفحه اصلی</a>
+            </div>
+        {% endfor %}
+    </div>
+
+</section>
+{% endblock %}

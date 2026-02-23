@@ -1,0 +1,50 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}درباره من | وبلاگ متین{% endblock %}
+
+{% block content %}
+<div class="single-post-container" style="text-align: center; max-width: 750px; padding: 4rem 2rem;">
+    
+    <div class="about-avatar" style="margin-bottom: 2rem;">
+        <img src="{% static 'my-photo.jpg' %}" alt="متین" style="width: 180px; height: 180px; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary); box-shadow: var(--shadow); transition: transform 0.3s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
+    </div>
+
+    <h1 style="font-size: 2.8rem; font-weight: 900; color: var(--text-main); margin-bottom: 0.5rem;">سلام، من متین هستم 👋</h1>
+    <h2 style="font-size: 1.3rem; font-weight: 500; color: var(--primary); margin-bottom: 2.5rem;">توسعه‌دهنده نرم‌افزار | دانشجوی علوم کامپیوتر</h2>
+
+    <div class="about-text" style="color: var(--text-muted); line-height: 2; font-size: 1.15rem; text-align: justify; margin-bottom: 3.5rem;">
+        <p style="margin-bottom: 1.5rem;">
+            من دانشجوی سال آخر رشته علوم کامپیوتر تو دانشگاه گیلان هستم. مسیر من تو دنیای برنامه‌نویسی با کنجکاوی برای درکِ نحوه کارکرد سیستم‌ها شروع شد و الان تمرکز اصلیم روی توسعه وب (به‌خصوص سمت بک‌اند با پایتون و فریم‌ورک جنگو) و تکنولوژی‌های مرتبط با هوش مصنوعیه.
+        </p>
+        <p style="margin-bottom: 1.5rem;">
+            علاوه بر مهندسی نرم‌افزار، به شدت به مباحث پایه علوم کامپیوتر مثل نظریه گراف و ترکیبیات علاقه‌مندم. برام خیلی جذابه که چطوری می‌شه با استفاده از منطق ریاضی و چالش‌های الگوریتمی، مسائل پیچیده دنیای واقعی رو حل کرد و سیستم‌های بهینه‌تری ساخت.
+        </p>
+        <p>
+            وقتی پای سیستم نیستم و درگیر امتحانات یا پروژه‌های سنگین دانشگاهی نیستم، احتمالاً می‌تونید منو در حال تماشای مسابقات بسکتبال (مخصوصاً بازی‌های لس‌آنجلس لیکرز 🏀) یا خوندن یه مقاله جدید درباره آینده تکنولوژی پیدا کنید!
+        </p>
+    </div>
+
+    <div class="skills-section" style="margin-bottom: 3.5rem;">
+        <h3 style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 1.5rem; font-weight: 800;">مهارت‌ها و علاقه‌مندی‌ها 🛠️</h3>
+        <div class="tag-cloud" style="justify-content: center; gap: 0.8rem;">
+            <span class="tag">Python</span>
+            <span class="tag">Django</span>
+            <span class="tag">Web Development</span>
+            <span class="tag">Graph Theory</span>
+            <span class="tag">Combinatorics</span>
+            <span class="tag">AI</span>
+        </div>
+    </div>
+
+    <div class="contact-section" style="border-top: 1px dashed var(--border); padding-top: 2.5rem;">
+        <h3 style="font-size: 1.4rem; color: var(--text-main); margin-bottom: 1.5rem;">بیاید در ارتباط باشیم 🌐</h3>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="https://github.com/ImMatinGoli" target="_blank" class="btn btn-primary">گیت‌هاب من</a>
+            <a href="https://t.me/matin_gli" target="_blank" class="btn btn-outline">تلگرام</a>
+            <a href="mailto:immatingoli@gmail.com" class="btn btn-outline">ایمیل مستقیم</a>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

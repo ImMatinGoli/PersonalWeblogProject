@@ -1,0 +1,41 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}تایید حذف | {{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="text-align: center; border-top: 5px solid #ef4444;">
+        <div class="auth-header">
+            <h2 style="color: #ef4444; font-size: 3rem; margin-bottom: 0.5rem;">⚠️</h2>
+            <h3 style="margin-bottom: 1rem; font-weight: 900;">مطمئنی می‌خوای پاکش کنی؟</h3>
+            
+            <div style="background-color: var(--bg-color); padding: 1rem; border-radius: 8px; border: 1px dashed var(--border); margin: 1.5rem 0;">
+                <p style="color: var(--text-main); font-size: 1.1rem; font-weight: bold; margin: 0;">
+                    «{{ post.title }}»
+                </p>
+            </div>
+            
+            <p style="color: var(--text-muted); line-height: 1.8; font-size: 0.95rem;">
+                اگه این مقاله رو حذف کنی، برای همیشه از دیتابیس سایت پاک میشه و دیگه هیچ راهی برای برگردوندنش نیست. 
+                واقعاً می‌خوای این کار رو بکنی؟
+            </p>
+        </div>
+        
+        <form method="post" style="margin-top: 2rem;">
+            {% csrf_token %}
+            <div style="display: flex; gap: 1rem; flex-direction: column;">
+                
+                <button type="submit" class="btn" style="background-color: #ef4444; color: white; width: 100%; box-shadow: 0 4px 12px rgba(239, 68, 68, 0.2);">
+                    آره، برای همیشه پاکش کن 🗑️
+                </button>
+                
+                <a href="{{ post.get_absolute_url }}" class="btn btn-outline" style="width: 100%; text-align: center;">
+                    نه، دستم خورد! (انصراف)
+                </a>
+                
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

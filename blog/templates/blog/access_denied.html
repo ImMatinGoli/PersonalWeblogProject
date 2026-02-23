@@ -1,0 +1,24 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}دسترسی غیرمجاز{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="text-align: center; border-top: 5px solid #ef4444;">
+        <div class="auth-header">
+            <h2 style="color: #ef4444; font-size: 2.5rem; margin-bottom: 1rem;">⛔ ۴۰۳</h2>
+            <h3 style="margin-bottom: 1rem;">دسترسی غیرمجاز!</h3>
+            <p style="color: var(--text-muted); line-height: 1.8;">
+                شما نویسنده این مقاله نیستید، بنابراین اجازه ویرایش یا حذف اون رو ندارید. <br>
+                لطفاً به مسیر قبلی برگردید.
+            </p>
+        </div>
+        
+        <div style="margin-top: 2rem;">
+            <a href="{% url 'posts_list' %}" class="btn btn-primary btn-block">بازگشت به لیست مقالات</a>
+            <button onclick="history.back()" class="btn btn-outline btn-block" style="margin-top: 1rem;">برگشت به صفحه قبل</button>
+        </div>
+    </div>
+</div>
+{% endblock %}

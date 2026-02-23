@@ -1,0 +1,27 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}پیام ارسال شد | وبلاگ متین{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="text-align: center; border-top: 5px solid #3b82f6;">
+        
+        <div class="auth-header">
+            <h2 style="font-size: 4rem; margin-bottom: 1rem;">📬</h2>
+            <h3 style="margin-bottom: 1rem; color: var(--text-main);">پیام شما با موفقیت ارسال شد!</h3>
+            
+            <p style="color: var(--text-muted); line-height: 1.8; font-size: 1.05rem;">
+                دمت گرم که پیام دادی! پیامت مستقیم رفت تو دیتابیس. در اولین فرصت می‌خونمش و اگه نیاز به جواب داشت، حتماً به همون ایمیلی که وارد کردی پیام می‌دم.
+            </p>
+        </div>
+        
+        <div style="margin-top: 2.5rem; display: flex; flex-direction: column; gap: 1rem;">
+            <a href="/" class="btn btn-primary btn-block">بازگشت به صفحه اصلی</a>
+            
+            <a href="{% url 'posts_list' %}" class="btn btn-outline btn-block" style="text-align: center;">خواندن مقالات وبلاگ</a>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

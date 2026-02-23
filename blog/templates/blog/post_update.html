@@ -1,0 +1,63 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}ویرایش مقاله | {{ post.title }}{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="max-width: 800px;">
+        <div class="auth-header">
+            <h2>ویرایش مقاله ✍️</h2>
+            <p>در حال ویرایش: <strong>{{ post.title }}</strong></p>
+        </div>
+
+        <form method="post" enctype="multipart/form-data" class="auth-form" novalidate>
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="id_title">عنوان مقاله <span style="color: #ef4444;">*</span></label>
+                <input type="text" name="title" id="id_title" value="{{ post.title }}" required>
+            </div>
+
+            <div class="form-group">
+                <label for="id_content">متن مقاله <span style="color: #ef4444;">*</span></label>
+                <textarea name="content" id="id_content" rows="12" required style="resize: vertical;">{{ post.content }}</textarea>
+            </div>
+
+            <div class="form-group">
+                <label>دسته‌بندی‌ها</label>
+                <div class="categories-checkboxes" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; padding: 1.5rem; border: 1px solid #2d3748; border-radius: 8px; background-color: #0f172a;">
+                    {% for category in categories %}
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; background-color: #1e293b; padding: 5px 12px; border-radius: 50px; border: 1px solid #334155; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='#334155'">
+                            <input type="checkbox" name="categories" value="{{ category.id }}"
+                                   style="accent-color: var(--primary); width: 16px; height: 16px;"
+                                   {% if category in post.categories.all %}checked{% endif %}> <span style="color: #e2e8f0; font-size: 0.95rem;">{{ category.name }}</span>
+                        </label>
+                    {% empty %}
+                        <span style="color: #94a3b8; font-size: 0.9rem;">هنوز دسته‌بندی ایجاد نشده است.</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 1.5rem;">
+                <label for="id_cover">تصویر کاور</label>
+
+                {% if post.cover %}
+                    <div style="margin-bottom: 1rem; padding: 1rem; background-color: #0f172a; border-radius: 8px; border: 1px dashed var(--border); text-align: center;">
+                        <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">کاور فعلی مقاله:</p>
+                        <img src="{{ post.cover.url }}" alt="کاور فعلی" style="max-height: 150px; border-radius: 8px; box-shadow: var(--shadow);">
+                        <p style="font-size: 0.8rem; color: var(--primary); margin-top: 0.5rem;">برای تغییر، یک عکس جدید انتخاب کنید.</p>
+                    </div>
+                {% endif %}
+
+                <input type="file" name="cover" id="id_cover" accept="image/*">
+            </div>
+
+            <div style="display: flex; gap: 1rem; margin-top: 2.5rem;">
+                <button type="submit" class="btn btn-primary" style="flex: 1; font-size: 1.1rem;">ذخیره تغییرات</button>
+                <a href="{{ post.get_absolute_url }}" class="btn btn-outline" style="flex: 1; text-align: center; font-size: 1.1rem;">انصراف</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}

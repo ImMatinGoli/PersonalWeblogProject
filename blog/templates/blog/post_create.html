@@ -1,0 +1,54 @@
+{% extends '_base.html' %}
+{% load static %}
+
+{% block title %}نوشتن مقاله جدید | وبلاگ متین{% endblock %}
+
+{% block content %}
+<div class="auth-container">
+    <div class="auth-card" style="max-width: 800px;">
+        <div class="auth-header">
+            <h2>نوشتن مقاله جدید 📝</h2>
+            <p>دانش و تجربیاتت رو تو دنیای برنامه‌نویسی با بقیه به اشتراک بذار!</p>
+        </div>
+        
+        <form method="post" enctype="multipart/form-data" class="auth-form" novalidate>
+            {% csrf_token %}
+            
+            <div class="form-group">
+                <label for="id_title">عنوان مقاله <span style="color: #ef4444;">*</span></label>
+                <input type="text" name="title" id="id_title" placeholder="مثلاً: پیاده‌سازی الگوریتم‌های گراف در پایتون" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="id_content">متن مقاله <span style="color: #ef4444;">*</span></label>
+                <textarea name="content" id="id_content" rows="12" placeholder="متن اصلی مقاله‌ت رو اینجا بنویس..." required style="resize: vertical;"></textarea>
+            </div>
+
+            <div class="form-group">
+                <label>دسته‌بندی‌ها (می‌تونی چند مورد رو انتخاب کنی)</label>
+                <div class="categories-checkboxes" style="display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.5rem; padding: 1.5rem; border: 1px solid #2d3748; border-radius: 8px; background-color: #0f172a;">
+                    {% for category in categories %}
+                        <label style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; background-color: #1e293b; padding: 5px 12px; border-radius: 50px; border: 1px solid #334155; transition: all 0.2s;" onmouseover="this.style.borderColor='var(--primary)'" onmouseout="this.style.borderColor='#334155'">
+                            <input type="checkbox" name="categories" value="{{ category.id }}" style="accent-color: var(--primary); width: 16px; height: 16px;">
+                            <span style="color: #e2e8f0; font-size: 0.95rem;">{{ category.name }}</span>
+                        </label>
+                    {% empty %}
+                        <span style="color: #94a3b8; font-size: 0.9rem;">هنوز دسته‌بندی ایجاد نشده. از پنل ادمین اضافه کن!</span>
+                    {% endfor %}
+                </div>
+            </div>
+
+            <div class="form-group" style="margin-top: 1.5rem;">
+                <label for="id_cover">تصویر کاور (اختیاری)</label>
+                <input type="file" name="cover" id="id_cover" accept="image/*">
+                <small class="help-text" style="display: block; margin-top: 0.5rem;">یه عکس جذاب می‌تونه بازدید مقاله‌ت رو چند برابر کنه!</small>
+            </div>
+            
+            <div style="display: flex; gap: 1rem; margin-top: 2.5rem;">
+                <button type="submit" class="btn btn-primary" style="flex: 1; font-size: 1.1rem;">انتشار مقاله 🚀</button>
+                <a href="/" class="btn btn-outline" style="flex: 1; text-align: center; font-size: 1.1rem;">انصراف</a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
