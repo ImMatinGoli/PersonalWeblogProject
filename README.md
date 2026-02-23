@@ -27,7 +27,7 @@
 
 ۱. ابتدا پروژه را کلون کنید:
 ```bash
-git clone https://github.com/matin-dev/blog-django.git](https://github.com/ImMatinGoli/PersonalWeblogProject
+git clone https://github.com/ImMatinGoli/PersonalWeblogProject
 ```
 
 ۲. یک محیط مجازی ساخته و پکیج‌ها را نصب کنید:
